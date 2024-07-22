@@ -1,5 +1,16 @@
-nest start
+nest command execute:
+    nest start
+    
+    nest g mo user
+    nest g co user
+    nest g s user
 
-nest go mo user
-nest go co user
-nest go s user
+    nest g mo auth
+    nest g co auth
+    nest g s auth
+
+dependencies:
+    npm install uuid
+    npm install --save @nestjs/config
+    npm install --save @nestjs/jwt
+
