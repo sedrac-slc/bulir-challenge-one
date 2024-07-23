@@ -1,15 +1,37 @@
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+
 export enum UserType {
   CUSTOMER,
   PROVIDER,
 }
 
+@Entity({ name: 'TB_USERS' })
 export class User {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
+  @Column()
   fullName: string;
+  @Column()
+  @Index({ unique: true })
   nif: string;
+  @Column()
+  @Index({ unique: true })
   email: string;
+  @Column()
   password: string;
+  @Column()
   type: UserType;
+  @CreateDateColumn()
+  createdAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   constructor(
     id: string,
