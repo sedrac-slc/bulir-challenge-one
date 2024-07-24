@@ -9,6 +9,10 @@ nest command execute:
     nest g co auth
     nest g s auth
 
+    nest g mo customer
+    nest g co customer
+    nest g s customer    
+
 dependencies:
     npm install uuid
     npm install --save @nestjs/config

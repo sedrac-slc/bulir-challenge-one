@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { User, UserType } from './user.model';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { User } from './user.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { hashSync } from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -9,40 +10,24 @@ export class UserService {
     @InjectRepository(User) private readonly repository: Repository<User>,
   ) {}
 
-  private readonly users: User[] = [
-    {
-      id: '0190dc57-38c8-7421-a8dd-72b71a36ea4d',
-      fullName: 'Alice Smith',
-      nif: '123456789',
-      email: 'alice.smith@example.com',
-      password: 'alicepassword123',
-      type: UserType.CUSTOMER,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '0190dc57-9001-7fcd-a2cf-af381bb79d77',
-      fullName: 'Bob Johnson',
-      nif: '987654321',
-      email: 'bob.johnson@example.com',
-      password: 'bobpassword456',
-      type: UserType.PROVIDER,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '0190dc57-c895-75f7-a48d-40b9df9162c2',
-      fullName: 'Charlie Brown',
-      nif: '456789123',
-      email: 'charlie.brown@example.com',
-      password: 'charliepassword789',
-      type: UserType.CUSTOMER,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+  async save(user: User) {
+    const findNif = await this.findByNif(user.nif);
+    const findEmail = await this.findByEmail(user.email);
 
-  async findOne(email: string): Promise<User | undefined> {
-    return this.users.find((user) => user.email === email);
+    if (findNif)
+      throw new ConflictException(`NIF ${user.nif} already registered`);
+    if (findEmail)
+      throw new ConflictException(`Email ${user.email} already registered`);
+
+    user.password = hashSync(user.password, 10);
+    return await this.repository.save(user);
+  }
+
+  async findByEmail(email: string): Promise<User | undefined> {
+    return await this.repository.findOne({ where: { email } });
+  }
+
+  async findByNif(nif: string): Promise<User | undefined> {
+    return await this.repository.findOne({ where: { nif } });
   }
 }

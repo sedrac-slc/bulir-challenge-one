@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'orem-config';
+import { CustomerModule } from './customer/customer.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { config } from 'orem-config';
     TypeOrmModule.forRoot(config),
     UserModule,
     AuthModule,
+    CustomerModule,
   ],
 })
 export class AppModule {}

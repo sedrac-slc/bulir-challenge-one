@@ -2,14 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 export enum UserType {
-  CUSTOMER,
-  PROVIDER,
+  CUSTOMER = 'CUSTOMER',
+  PROVIDER = 'PROVIDER',
 }
 
 @Entity({ name: 'TB_USERS' })
@@ -18,11 +17,9 @@ export class User {
   id: string;
   @Column()
   fullName: string;
-  @Column()
-  @Index({ unique: true })
+  @Column({ unique: true })
   nif: string;
-  @Column()
-  @Index({ unique: true })
+  @Column({ unique: true })
   email: string;
   @Column()
   password: string;
@@ -34,14 +31,12 @@ export class User {
   updatedAt: Date;
 
   constructor(
-    id: string,
     fullName: string,
     nif: string,
     email: string,
     password: string,
     type: UserType,
   ) {
-    this.id = id;
     this.fullName = fullName;
     this.nif = nif;
     this.email = email;
