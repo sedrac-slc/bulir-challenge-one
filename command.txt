@@ -21,6 +21,9 @@ nest command execute:
     nest g co job
     nest g s job       
 
+    nest g mo transaction_history
+    nest g s transaction_history
+    
 dependencies:
     npm install uuid
     npm install --save @nestjs/config

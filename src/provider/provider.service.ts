@@ -17,14 +17,18 @@ export class ProviderService {
     return await this.repository.findOne({ where: { id } });
   }
 
+  async findAll(): Promise<Provider[]> {
+    return await this.repository.find({ relations: ['user'] });
+  }
+
   async save(req: Record<string, any>): Promise<Provider> {
     try {
       const parm = this.userService.requestValidate(req);
       const user = await this.userService.save(
         new User(
           parm.fullName,
-          parm.email,
           parm.nif,
+          parm.email,
           parm.password,
           UserType.PROVIDER,
         ),

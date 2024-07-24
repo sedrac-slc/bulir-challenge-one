@@ -13,6 +13,10 @@ export class CustomerService {
     private readonly userService: UserService,
   ) {}
 
+  async findAll(): Promise<Customer[]> {
+    return await this.repository.find({ relations: ['user'] });
+  }
+
   async save(req: Record<string, any>): Promise<Customer> {
     try {
       const parm = this.userService.requestValidate(req);
@@ -25,9 +29,17 @@ export class CustomerService {
           UserType.CUSTOMER,
         ),
       );
-      return await this.repository.save(new Customer(user, parm.balance));
+      return await this.createOrUpdate(new Customer(user, parm.balance));
     } catch (error) {
       throw new ConflictException(error.message);
     }
+  }
+
+  async findById(id: string): Promise<Customer | undefined> {
+    return await this.repository.findOne({ where: { id } });
+  }
+
+  async createOrUpdate(curstomer: Customer): Promise<Customer> {
+    return await this.repository.save(curstomer);
   }
 }

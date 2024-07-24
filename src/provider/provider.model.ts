@@ -12,9 +12,11 @@ import {
 export class Provider {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
+
   @OneToMany(() => Job, (job) => job.provider)
   jobs: Job[];
 

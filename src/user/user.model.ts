@@ -1,7 +1,10 @@
+import { Customer } from 'src/customer/customer.model';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -29,6 +32,10 @@ export class User {
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(() => Customer, (customer) => customer.user)
+  @JoinColumn()
+  customer: Customer;
 
   constructor(
     fullName: string,

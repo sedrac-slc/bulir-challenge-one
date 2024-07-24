@@ -7,6 +7,10 @@ import { config } from 'orem-config';
 import { CustomerModule } from './customer/customer.module';
 import { JobModule } from './job/job.module';
 import { ProviderModule } from './provider/provider.module';
+import { TransactionHistoryModule } from './transaction_history/transaction_history.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guards/roles.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -17,6 +21,14 @@ import { ProviderModule } from './provider/provider.module';
     CustomerModule,
     JobModule,
     ProviderModule,
+    JwtModule,
+    TransactionHistoryModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}
