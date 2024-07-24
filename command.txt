@@ -11,10 +11,25 @@ nest command execute:
 
     nest g mo customer
     nest g co customer
-    nest g s customer    
+    nest g s customer
+
+    nest g mo provider
+    nest g co provider
+    nest g s provider    
+
+    nest g mo job
+    nest g co job
+    nest g s job       
 
 dependencies:
     npm install uuid
     npm install --save @nestjs/config
     npm install --save @nestjs/jwt
 
+#query
+  async findByProviderAndTitle(provider: Provider,title: string,): Promise<Job | null> {
+    return await this.repository.findOne({
+      where: { provider, title },
+      relations: ['provider'],
+    });
+  }

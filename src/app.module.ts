@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'orem-config';
 import { CustomerModule } from './customer/customer.module';
+import { JobModule } from './job/job.module';
+import { ProviderModule } from './provider/provider.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { CustomerModule } from './customer/customer.module';
     UserModule,
     AuthModule,
     CustomerModule,
+    JobModule,
+    ProviderModule,
   ],
 })
 export class AppModule {}

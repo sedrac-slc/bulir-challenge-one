@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { User } from './user.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -29,5 +33,18 @@ export class UserService {
 
   async findByNif(nif: string): Promise<User | undefined> {
     return await this.repository.findOne({ where: { nif } });
+  }
+
+  requestValidate(req: Record<string, any>) {
+    if (!req.fullName || !req.email || !req.nif || !req.password)
+      throw new BadRequestException('Missing required fields');
+
+    return {
+      fullName: req.fullName,
+      email: req.email,
+      nif: req.nif,
+      password: req.password,
+      balance: req.balance ?? 0,
+    };
   }
 }

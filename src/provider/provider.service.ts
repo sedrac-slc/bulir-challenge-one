@@ -1,19 +1,23 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { Customer } from './customer.model';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Provider } from './provider.model';
 import { UserService } from 'src/user/user.service';
 import { User, UserType } from 'src/user/user.model';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class CustomerService {
+export class ProviderService {
   constructor(
-    @InjectRepository(Customer)
-    private readonly repository: Repository<Customer>,
+    @InjectRepository(Provider)
+    private readonly repository: Repository<Provider>,
     private readonly userService: UserService,
   ) {}
 
-  async save(req: Record<string, any>): Promise<Customer> {
+  async findById(id: string): Promise<Provider | undefined> {
+    return await this.repository.findOne({ where: { id } });
+  }
+
+  async save(req: Record<string, any>): Promise<Provider> {
     try {
       const parm = this.userService.requestValidate(req);
       const user = await this.userService.save(
@@ -22,10 +26,10 @@ export class CustomerService {
           parm.email,
           parm.nif,
           parm.password,
-          UserType.CUSTOMER,
+          UserType.PROVIDER,
         ),
       );
-      return await this.repository.save(new Customer(user, parm.balance));
+      return await this.repository.save(new Provider(user));
     } catch (error) {
       throw new ConflictException(error.message);
     }

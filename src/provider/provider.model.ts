@@ -1,24 +1,24 @@
+import { Job } from 'src/job/job.model';
 import { User } from 'src/user/user.model';
 import {
-  Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'TB_CUSTOMER' })
-export class Customer {
+@Entity({ name: 'TB_PROVIDER' })
+export class Provider {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
-  @Column({ type: 'decimal', unsigned: true })
-  balance: number;
+  @OneToMany(() => Job, (job) => job.provider)
+  jobs: Job[];
 
-  constructor(user: User, balance: number) {
+  constructor(user: User) {
     this.user = user;
-    this.balance = balance;
   }
 }
