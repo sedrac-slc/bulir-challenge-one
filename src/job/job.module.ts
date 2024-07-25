@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JobController } from './job.controller';
 import { JobService } from './job.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,7 +12,7 @@ import { TransactionHistoryModule } from 'src/transaction_history/transaction_hi
     TypeOrmModule.forFeature([Job]),
     ProviderModule,
     CustomerModule,
-    TransactionHistoryModule,
+    forwardRef(() => TransactionHistoryModule),
   ],
   controllers: [JobController],
   providers: [JobService],

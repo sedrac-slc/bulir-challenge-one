@@ -4,6 +4,7 @@ import { Provider } from './provider.model';
 import { UserService } from 'src/user/user.service';
 import { User, UserType } from 'src/user/user.model';
 import { Repository } from 'typeorm';
+import { ProviderDto } from './provider.dto';
 
 @Injectable()
 export class ProviderService {
@@ -21,15 +22,14 @@ export class ProviderService {
     return await this.repository.find({ relations: ['user'] });
   }
 
-  async save(req: Record<string, any>): Promise<Provider> {
+  async save(req: ProviderDto): Promise<Provider> {
     try {
-      const parm = this.userService.requestValidate(req);
       const user = await this.userService.save(
         new User(
-          parm.fullName,
-          parm.nif,
-          parm.email,
-          parm.password,
+          req.fullName,
+          req.nif,
+          req.email,
+          req.password,
           UserType.PROVIDER,
         ),
       );
@@ -37,5 +37,30 @@ export class ProviderService {
     } catch (error) {
       throw new ConflictException(error.message);
     }
+  }
+
+  async update(id: string, req: ProviderDto): Promise<Provider> {
+    try {
+      const provider = await this.findById(id);
+      await this.throwNotFoundProvider(provider);
+      provider.user.fullName = req.fullName;
+      provider.user.email = req.email;
+      provider.user.nif = req.nif;
+      await this.userService.save(provider.user);
+      return await this.repository.save(provider);
+    } catch (error) {
+      throw new ConflictException(error.message);
+    }
+  }
+
+  async remove(id: string) {
+    const provider = await this.findById(id);
+    await this.throwNotFoundProvider(provider);
+    await this.repository.remove(provider);
+  }
+
+  async throwNotFoundProvider(provider: Provider) {
+    if (!provider)
+      throw new ConflictException(`Provider not found by id ${provider.id}`);
   }
 }

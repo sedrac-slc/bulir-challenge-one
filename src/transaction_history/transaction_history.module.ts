@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TransactionHistoryService } from './transaction_history.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TransactionHistory } from './transaction_history.model';
@@ -9,8 +9,8 @@ import { CustomerModule } from 'src/customer/customer.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([TransactionHistory]),
-    JobModule,
     CustomerModule,
+    forwardRef(() => JobModule),
   ],
   providers: [TransactionHistoryService],
   exports: [TransactionHistoryService],

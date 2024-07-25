@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionHistory } from './transaction_history.model';
 import { Repository } from 'typeorm';
@@ -13,6 +13,7 @@ export class TransactionHistoryService {
     @InjectRepository(TransactionHistory)
     private readonly repository: Repository<TransactionHistory>,
     private readonly customerService: CustomerService,
+    @Inject(forwardRef(() => JobService))
     private readonly jobService: JobService,
   ) {}
 
