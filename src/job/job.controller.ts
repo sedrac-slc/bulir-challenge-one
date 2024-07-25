@@ -28,6 +28,7 @@ export class JobController {
   }
 
   @Get('/:id')
+  @Roles(UserType.PROVIDER)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Buscar pelo serviço' })
   async findById(@Param('id') id: string) {
@@ -51,6 +52,7 @@ export class JobController {
   }
 
   @Delete('/:id')
+  @Roles(UserType.PROVIDER)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Eliminar um serviço' })
   async remove(@Param('id') id: string) {

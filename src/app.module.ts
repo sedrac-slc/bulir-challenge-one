@@ -11,6 +11,7 @@ import { TransactionHistoryModule } from './transaction_history/transaction_hist
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/roles.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
@@ -28,6 +29,10 @@ import { JwtModule } from '@nestjs/jwt';
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
   ],
 })

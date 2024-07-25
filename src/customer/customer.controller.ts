@@ -12,7 +12,6 @@ import {
 import { CustomerService } from './customer.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CustomerDto } from './customer.dto';
-import { Public } from 'src/decorators/public.decorator';
 
 @ApiTags('Clientes')
 @Controller('customers')
@@ -20,7 +19,6 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Get()
-  @Public()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Listar todos cliente' })
   async findAll() {
