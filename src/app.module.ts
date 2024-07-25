@@ -16,12 +16,12 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(config),
+    JwtModule,
     UserModule,
     AuthModule,
     CustomerModule,
     JobModule,
     ProviderModule,
-    JwtModule,
     TransactionHistoryModule,
   ],
   providers: [
