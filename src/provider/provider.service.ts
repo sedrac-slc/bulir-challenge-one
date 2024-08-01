@@ -15,7 +15,10 @@ export class ProviderService {
   ) {}
 
   async findById(id: string): Promise<Provider | undefined> {
-    return await this.repository.findOne({ where: { id } });
+    return await this.repository.findOne({
+      where: { id },
+      relations: ['user'],
+    });
   }
 
   async findAll(): Promise<Provider[]> {
@@ -47,7 +50,7 @@ export class ProviderService {
       provider.user.email = req.email;
       provider.user.nif = req.nif;
       await this.userService.save(provider.user);
-      return await this.repository.save(provider);
+      return await provider;
     } catch (error) {
       throw new ConflictException(error.message);
     }

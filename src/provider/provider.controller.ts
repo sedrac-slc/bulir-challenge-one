@@ -42,7 +42,7 @@ export class ProviderController {
   @Put('/:id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Editar um prestador' })
-  async update(@Param('id') id: string, @Body() req: ProviderDto) {
+  async update(@Body() req: ProviderDto, @Param('id') id: string) {
     return await this.providerService.update(id, req);
   }
 

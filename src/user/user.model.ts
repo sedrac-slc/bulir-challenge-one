@@ -1,4 +1,6 @@
 import { Customer } from 'src/customer/customer.model';
+import { UserResponse } from 'src/response/UserResponse';
+
 import {
   Column,
   CreateDateColumn,
@@ -49,5 +51,15 @@ export class User {
     this.email = email;
     this.password = password;
     this.type = type;
+  }
+
+  userResponse(): UserResponse {
+    return new UserResponse(
+      this.id,
+      this.fullName,
+      this.nif,
+      this.email,
+      this.type,
+    );
   }
 }

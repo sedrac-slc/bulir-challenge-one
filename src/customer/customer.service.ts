@@ -23,8 +23,8 @@ export class CustomerService {
       const user = await this.userService.save(
         new User(
           req.fullName,
-          req.email,
           req.nif,
+          req.email,
           req.password,
           UserType.CUSTOMER,
         ),
