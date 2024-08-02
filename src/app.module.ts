@@ -3,7 +3,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { configSQLite as config } from 'orem-config';
+import { configMySQL as config } from 'orem-config';
 import { CustomerModule } from './customer/customer.module';
 import { JobModule } from './job/job.module';
 import { ProviderModule } from './provider/provider.module';
