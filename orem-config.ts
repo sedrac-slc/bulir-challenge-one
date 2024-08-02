@@ -5,7 +5,6 @@ export const configSQLite: DataSourceOptions = {
     database: './db.sql',
     synchronize: true,
     entities: [`${__dirname}/**/*.model{.ts,.js}`],
-    synchronize: true,
 };
 
 export const configMySQL: DataSourceOptions = {
