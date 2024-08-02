@@ -32,6 +32,13 @@ export class ProviderController {
     return await this.providerService.findById(id);
   }
 
+  @Get('user/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Buscar o prestador pelo id de usur' })
+  async findByUser(@Param('id') id: string) {
+    return await this.providerService.findByUser(id);
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Buscar o prestador' })

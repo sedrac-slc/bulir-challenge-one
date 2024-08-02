@@ -32,6 +32,13 @@ export class CustomerController {
     return await this.customerService.findById(id);
   }
 
+  @Get('user/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Buscar o cliente pelo id de usur' })
+  async findByUser(@Param('id') id: string) {
+    return await this.customerService.findByUser(id);
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Criar um cliente' })

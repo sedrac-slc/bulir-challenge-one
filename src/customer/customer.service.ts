@@ -63,6 +63,12 @@ export class CustomerService {
     });
   }
 
+  async findByUser(userId: string): Promise<Customer | undefined> {
+    return await this.repository.findOne({
+      where: { user: { id: userId } },
+    });
+  }
+
   async createOrUpdate(curstomer: Customer): Promise<Customer> {
     return await this.repository.save(curstomer);
   }

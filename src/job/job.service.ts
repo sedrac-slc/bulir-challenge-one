@@ -7,7 +7,7 @@ import {
 import { Job } from './job.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProviderService } from 'src/provider/provider.service';
-import { Repository } from 'typeorm';
+import { LessThanOrEqual, Repository } from 'typeorm';
 import { CustomerService } from 'src/customer/customer.service';
 import { TransactionHistoryService } from 'src/transaction_history/transaction_history.service';
 import { TransactionHistory } from 'src/transaction_history/transaction_history.model';
@@ -38,6 +38,17 @@ export class JobService {
 
   async findAll(): Promise<Job[]> {
     return await this.repository.find({ relations: ['provider.user'] });
+  }
+
+  async findAllContract(userId: string): Promise<Job[]> {
+    const customer = await this.customerService.findByUser(userId);
+    if (!customer) return [];
+    return await this.repository.find({
+      relations: ['provider.user'],
+      where: {
+        price: LessThanOrEqual(customer.balance),
+      },
+    });
   }
 
   async save(req: JobDto): Promise<Job> {
@@ -90,11 +101,17 @@ export class JobService {
         throw new ConflictException('Insufficient balance');
 
       const valueInitial = customer.balance;
-      customer.balance -= valueInitial;
+      customer.balance -= job.price;
       await this.customerService.createOrUpdate(customer);
 
       await this.transactionHistoryService.save(
-        new TransactionHistory(job, customer, valueInitial, customer.balance),
+        new TransactionHistory(
+          job,
+          customer,
+          valueInitial,
+          customer.balance,
+          job.price,
+        ),
       );
     } catch (error) {
       throw new ConflictException(error.message);

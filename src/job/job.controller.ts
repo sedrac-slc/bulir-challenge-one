@@ -21,10 +21,17 @@ export class JobController {
   constructor(private readonly jobService: JobService) {}
 
   @Get()
-  @Roles(UserType.PROVIDER)
   @ApiOperation({ summary: 'Listar todos serviços' })
   async findAll() {
     return await this.jobService.findAll();
+  }
+
+  @Get('concract/:user')
+  @ApiOperation({
+    summary: 'Listar todos serviços que um cliente pode contratar',
+  })
+  async findAllContract(@Param('user') userId: string) {
+    return await this.jobService.findAllContract(userId);
   }
 
   @Get('/:id')

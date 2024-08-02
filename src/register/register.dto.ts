@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { UserType } from 'src/user/user.model';
 
-export class CustomerDto {
+export class RegisterDto {
   @ApiProperty({
     description: 'Nome completo cliente',
     example: 'Sedrac Lucas Calupeteca',
@@ -17,18 +18,5 @@ export class CustomerDto {
   password: string;
   @ApiProperty({ description: 'Saldo do cliente', example: 200 })
   balance: number = 0;
-
-  constructor(
-    fullName: string,
-    nif: string,
-    email: string,
-    password: string,
-    balance: number,
-  ) {
-    this.fullName = fullName;
-    this.nif = nif;
-    this.email = email;
-    this.password = password;
-    this.balance = balance;
-  }
+  userType: UserType;
 }

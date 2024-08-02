@@ -3,7 +3,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { config } from 'orem-config';
+import { configMySQL as config } from 'orem-config';
 import { CustomerModule } from './customer/customer.module';
 import { JobModule } from './job/job.module';
 import { ProviderModule } from './provider/provider.module';
@@ -12,6 +12,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/roles.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './guards/auth.guard';
+import { RegisterModule } from './register/register.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthGuard } from './guards/auth.guard';
     JobModule,
     ProviderModule,
     TransactionHistoryModule,
+    RegisterModule,
   ],
   providers: [
     {

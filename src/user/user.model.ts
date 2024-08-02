@@ -53,13 +53,14 @@ export class User {
     this.type = type;
   }
 
-  userResponse(): UserResponse {
+  userResponse(balance: number = 0): UserResponse {
     return new UserResponse(
       this.id,
       this.fullName,
       this.nif,
       this.email,
       this.type,
+      balance,
     );
   }
 }

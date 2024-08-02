@@ -15,4 +15,11 @@ export class ProviderDto {
   nif: string;
   @ApiProperty({ description: 'Senha do cliente', example: '12345678' })
   password?: string;
+
+  constructor(fullName: string, nif: string, email: string, password: string) {
+    this.fullName = fullName;
+    this.nif = nif;
+    this.email = email;
+    this.password = password;
+  }
 }

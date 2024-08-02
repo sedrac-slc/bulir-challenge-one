@@ -5,6 +5,7 @@ export class UserResponse {
   fullName: string;
   nif: string;
   email: string;
+  balance: number = 0;
   type: UserType;
 
   constructor(
@@ -13,11 +14,13 @@ export class UserResponse {
     nif: string,
     email: string,
     type: UserType,
+    balance: number = 0,
   ) {
     this.id = id;
     this.fullName = fullName;
     this.nif = nif;
     this.email = email;
     this.type = type;
+    this.balance = balance;
   }
 }

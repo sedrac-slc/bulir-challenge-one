@@ -28,6 +28,9 @@ export class TransactionHistory {
   @Column({ type: 'decimal', unsigned: true })
   valueFinal: number;
 
+  @Column({ type: 'decimal', unsigned: true })
+  priceJob: number;
+
   @Column({ unsigned: true })
   counter?: number;
 
@@ -42,11 +45,13 @@ export class TransactionHistory {
     customer: Customer,
     valueInitial: number,
     valueFinal: number,
+    priceJob: number,
   ) {
     this.customer = customer;
     this.job = job;
     this.valueInitial = valueInitial;
     this.valueFinal = valueFinal;
     this.counter = 0;
+    this.priceJob = priceJob;
   }
 }
