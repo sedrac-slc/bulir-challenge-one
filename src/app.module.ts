@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import config from 'orem-config';
 import { CustomerModule } from './customer/customer.module';
 import { JobModule } from './job/job.module';
 import { ProviderModule } from './provider/provider.module';
@@ -13,11 +11,11 @@ import { RolesGuard } from './guards/roles.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterModule } from './register/register.module';
+import { DbModule } from './db/db.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot(config),
     JwtModule,
     UserModule,
     AuthModule,
@@ -26,6 +24,7 @@ import { RegisterModule } from './register/register.module';
     ProviderModule,
     TransactionHistoryModule,
     RegisterModule,
+    DbModule,
   ],
   providers: [
     {
