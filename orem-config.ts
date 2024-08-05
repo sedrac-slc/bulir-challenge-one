@@ -7,13 +7,15 @@ export const configSQLite: DataSourceOptions = {
     entities: [`${__dirname}/**/*.model{.ts,.js}`],
 };
 
-export const configMySQL: DataSourceOptions = {
-    type: 'mysql',
-    host: 'mysql.railway.internal',
-    port: 3306,
-    username: 'root',
-    password: 'ZRqstrOtIohoWoKuBvcHwcWAZkcEEGam',
-    database: 'railway',
-    entities: [`${__dirname}/**/*.model{.ts,.js}`],
-    synchronize: true,
+export const configMySQL: DataSourceOptions ={
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '',
+      database: 'bulir_one',
+      entities: [`${__dirname}/**/*.model{.ts,.js}`],
+      synchronize: false,
 }
+
+export default configMySQL;

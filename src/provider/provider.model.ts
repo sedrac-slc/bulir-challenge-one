@@ -17,7 +17,7 @@ export class Provider {
   @JoinColumn()
   user: User;
 
-  @OneToMany(() => Job, (job) => job.provider)
+  @OneToMany(() => Job, (job) => job.provider, { onDelete: 'CASCADE' })
   jobs: Job[];
 
   constructor(user: User) {

@@ -14,7 +14,7 @@ export class Customer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User, (user) => user.customer)
+  @OneToOne(() => User, (user) => user.customer, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
 

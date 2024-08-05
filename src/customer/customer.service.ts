@@ -66,6 +66,7 @@ export class CustomerService {
   async findByUser(userId: string): Promise<Customer | undefined> {
     return await this.repository.findOne({
       where: { user: { id: userId } },
+      relations: ['user'],
     });
   }
 

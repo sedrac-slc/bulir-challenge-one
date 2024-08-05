@@ -35,7 +35,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Customer, (customer) => customer.user)
+  @OneToOne(() => Customer, (customer) => customer.user, { cascade: true })
   @JoinColumn()
   customer: Customer;
 

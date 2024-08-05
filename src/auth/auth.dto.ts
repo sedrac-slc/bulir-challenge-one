@@ -9,3 +9,7 @@ export class AuthDto {
   @ApiProperty({ description: 'Senha do cliente', example: '12345678' })
   password: string;
 }
+
+export interface TokenDto {
+  token: string;
+}

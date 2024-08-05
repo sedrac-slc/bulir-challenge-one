@@ -21,9 +21,12 @@ export class TransactionHistoryService {
     return await this.repository.find();
   }
 
-  async findAllCustomer(id: string): Promise<TransactionHistory[]> {
-    const customer = await this.customerService.findById(id);
-    return await this.repository.find({ where: { customer } });
+  async findAllCustomer(userId: string): Promise<TransactionHistory[]> {
+    //const customer = await this.customerService.findById(id);
+    return await this.repository.find({
+      where: { customer: { id: userId } },
+      relations: ['customer.user', 'job.provider.user'],
+    });
   }
 
   async findAllJob(id: string): Promise<TransactionHistory[]> {

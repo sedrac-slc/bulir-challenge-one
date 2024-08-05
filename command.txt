@@ -36,3 +36,16 @@ dependencies:
       relations: ['provider'],
     });
   }
+
+
+/*
+export const configMySQL: DataSourceOptions = {
+    type: 'mysql',
+    host: process.env.DB_HOST,
+    port: +process.env.DB_PORT,
+    username: process.env.DB_USERNAME,
+    database: process.env.DB_NAME,
+    entities: [`${__dirname}/**/*.model{.ts,.js}`],
+    synchronize: true,
+}
+*/

@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthDto } from './auth.dto';
+import { AuthDto, TokenDto } from './auth.dto';
 import { Public } from 'src/decorators/public.decorator';
 
 @ApiTags('Autenticação')
@@ -14,5 +14,12 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   signIn(@Body() req: AuthDto) {
     return this.authService.signIn(req.email, req.password);
+  }
+
+  @Post('verify-token')
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  verifyToken(@Body() req: TokenDto) {
+    return this.authService.verifyToken(req.token);
   }
 }

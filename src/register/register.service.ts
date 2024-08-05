@@ -31,7 +31,7 @@ export class RegisterService {
       sub = customer.user.id;
     } else {
       const provider = await this.provideService.save(
-        new ProviderDto(req.fullName, req.email, req.nif, req.password),
+        new ProviderDto(req.fullName, req.nif, req.email, req.password),
       );
       response = provider.user.userResponse();
       sub = provider.user.id;

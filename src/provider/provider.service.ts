@@ -24,6 +24,7 @@ export class ProviderService {
   async findByUser(userId: string): Promise<Provider | undefined> {
     return await this.repository.findOne({
       where: { user: { id: userId } },
+      relations: ['user'],
     });
   }
 
