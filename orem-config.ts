@@ -8,14 +8,14 @@ export const configSQLite: DataSourceOptions = {
 };
 
 export const configMySQL: DataSourceOptions ={
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'bulir_one',
-      entities: [`${__dirname}/**/*.model{.ts,.js}`],
-      synchronize: false,
+    type: 'mysql',
+    host: 'localhost',
+    port: 3306,
+    username: 'root',
+    password: '',
+    database: 'bulir_one',
+    entities: [`${__dirname}/**/*.model{.ts,.js}`],
+    synchronize: false,
 }
 
 export default configMySQL;

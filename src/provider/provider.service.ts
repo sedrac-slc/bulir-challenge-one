@@ -56,7 +56,7 @@ export class ProviderService {
       provider.user.fullName = req.fullName;
       provider.user.email = req.email;
       provider.user.nif = req.nif;
-      await this.userService.save(provider.user);
+      await this.userService.save(provider.user, id);
       return await provider;
     } catch (error) {
       throw new ConflictException(error.message);

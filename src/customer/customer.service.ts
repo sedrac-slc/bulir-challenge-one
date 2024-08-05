@@ -43,7 +43,7 @@ export class CustomerService {
       customer.user.email = req.email;
       customer.user.nif = req.nif;
       customer.balance = req.balance;
-      await this.userService.save(customer.user);
+      await this.userService.save(customer.user, id);
       return await this.repository.save(customer);
     } catch (error) {
       throw new ConflictException(error.message);

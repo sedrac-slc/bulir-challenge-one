@@ -14,16 +14,26 @@ export class UserService {
     @InjectRepository(User) private readonly repository: Repository<User>,
   ) {}
 
-  async save(user: User) {
+  async save(user: User, id: string = '') {
     const findNif = await this.findByNif(user.nif);
     const findEmail = await this.findByEmail(user.email);
 
-    if (findNif)
-      throw new ConflictException(`NIF ${user.nif} already registered`);
-    if (findEmail)
-      throw new ConflictException(`Email ${user.email} already registered`);
+    if (findNif) {
+      if (id != '' && findNif.id != user.id)
+        throw new ConflictException(`NIF ${user.nif} already registered`);
+      if (id == '')
+        throw new ConflictException(`NIF ${user.nif} already registered`);
+    }
 
-    user.password = hashSync(user.password, 10);
+    if (findEmail) {
+      if (id != '' && findEmail.id != user.id)
+        throw new ConflictException(`Email ${user.email} already registered`);
+      if (id == '')
+        throw new ConflictException(`Email ${user.email} already registered`);
+    }
+
+    if (id == '') user.password = hashSync(user.password, 10);
+
     return await this.repository.save(user);
   }
 
