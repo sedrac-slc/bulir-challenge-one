@@ -5,9 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: async () => ({
+      useFactory: async (configService: ConfigService) => ({
         type: 'mysql',
-        url: 'mysql://root:maCRCVxjVuqhXGbiAlTlZDPzJAXTHIKr@roundhouse.proxy.rlwy.net:31140/railway',
+        host: configService.get<string>('DB_HOST'),
+        port: +configService.get<string>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
         entities: [`${__dirname}/**/*.model{.ts,.js}`],
         synchronize: true,
       }),

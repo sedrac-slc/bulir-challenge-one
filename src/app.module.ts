@@ -11,11 +11,14 @@ import { RolesGuard } from './guards/roles.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterModule } from './register/register.module';
-import { DbModule } from './db/db.module';
+//import { DbModule } from './db/db.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { configSQLite } from 'orem-config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot(configSQLite),
     JwtModule,
     UserModule,
     AuthModule,
@@ -24,7 +27,7 @@ import { DbModule } from './db/db.module';
     ProviderModule,
     TransactionHistoryModule,
     RegisterModule,
-    DbModule,
+    //DbModule,
   ],
   providers: [
     {
